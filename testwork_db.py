@@ -116,7 +116,6 @@ if __name__ == '__main__':
             :return:
             """
             base.update('один', 1)
-            self.assertEqual(base.db, {'один': 1})
             base.delete('один')
             self.assertNotIn('один', base.db)
 
