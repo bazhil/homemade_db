@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h2>Чтение значения из базы</h2>
+<form method="get" action="/read">
+    <p>Введите ключ</p>
+    <input type="text" name="key" id="dataKey" size="20" placeholder="Ключ">
+    <input type="button" id="spotButton" value="Ввести">
+</form>
+<div>Искомый элемент: {{ value }}</div>
+{% endblock %}

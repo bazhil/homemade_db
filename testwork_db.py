@@ -2,7 +2,7 @@
 import json
 import logging
 import datetime
-import unittest
+
 
 class HandMadeDB:
     """
@@ -95,31 +95,14 @@ class HandMadeDB:
             json.dump(self.db, d, ensure_ascii=False, indent=2)
         logging.info(str(datetime.datetime.today()) + ' ' + 'Пользователь сохранил изменения в базе данных')
 
-if __name__ == '__main__':
-    base = HandMadeDB()
-
-    class TestDB(unittest.TestCase):
+    def __auto_eraser(self):
         """
-        Тестирующий класс
+        Функция, которая автоматически удаляет все значения из базы данных по истечению 15 минут после её создания
+        :return:
         """
-        def test_update(self):
-            """
-            Функция, тестирующая вставку значений в базу данных
-            :return:
-            """
-            base.update('один', 1)
-            self.assertEqual(base.db, {'один': 1})
+        logging.info(str(datetime.datetime.today()) + ' ' + 'База данных автоматически очищена')
 
-        def test_delete(self):
-            """
-            Функция, тестирующая удаление значений из базы данных
-            :return:
-            """
-            base.update('один', 1)
-            base.delete('один')
-            self.assertNotIn('один', base.db)
 
-    unittest.main()
 
 
 
