@@ -33,8 +33,8 @@ base = None
 #         # смотри https://wtforms.readthedocs.io/en/stable/forms.html
 #         pass
 #
-#     key = StringField('name', validators=[DataRequired()])
-#     value = StringField('name', validators=[DataRequired()])
+#     key = StringField('key', validators=[DataRequired()])
+#     value = StringField('value', validators=[DataRequired()])
 
 
 @app.route('/', methods=['GET'])
@@ -54,25 +54,24 @@ def create():
     """
     global base
     base = HandMadeDB().db
-    return render_template('create.html', base=base), base
+    return render_template('create.html'), base
 
 
-@app.route('/update')
+@app.route('/update', methods=['POST', 'GET'])
 def update():
-    return render_template('update.html')
-
-@app.route('/update', methods=['POST'])
-def get_update():
     """
     Функция, которая добавляет пару ключ-значение в базу данных
     :return:
     """
+    if base == None:
+        message = 'Вначале необходимо создать базу данных'
+        render_template('update.html', message=message)
     if request.method == 'POST':
-        key = request.form['key']
-        value = request.form['value']
+        key = request.args.get('key')
+        value = request.args.get('value')
         base.update(key, value)
-    print(request.form)
-    return render_template('app_data.html', key=key, value=value), base
+        message = 'В базу данных добавлена пара {key: value}'
+    return render_template('update.html', message=message), base
 
 
 @app.route('/read', methods=['GET'])

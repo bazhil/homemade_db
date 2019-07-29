@@ -1,14 +1,14 @@
 {% extends "index.html" %}
 
 {% block content %}
+
 <h2>Добавление значения в базу</h2>
-<form method="get" action="/update">
+<form method="post" action="/update">
     <p>Введите пару ключ-значение</p>
     <input type="text" name="key" size="20" placeholder="Ключ">
     <input type="text" name="value" size="20" placeholder="Значение">
     <input type="button" value="Ввести">
 </form>
-{% for element in base:%}
-<div>В базу добавлена пара ключ-значение</div>
-{% endfor %}
+
+<p>{{ message}}</p>
 {% endblock %}

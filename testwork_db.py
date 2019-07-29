@@ -2,7 +2,7 @@
 import json
 import logging
 import datetime
-
+import time
 
 class HandMadeDB:
     """
@@ -10,8 +10,10 @@ class HandMadeDB:
     """
     def __init__(self):
         self.db = {}
+        self.time = time.time()
 
     logging.basicConfig(filename='db_activity.log', level=logging.INFO)
+
 
     def open(self):
         """
@@ -23,6 +25,7 @@ class HandMadeDB:
             str(datetime.datetime.today()) + ' ' + 'Пользователь загрузил сохраненную базу данных')
         return self.db
 
+
     def read(self, key=str):
         """
         Функция, которая считывает значение базы данных для ключа
@@ -33,10 +36,11 @@ class HandMadeDB:
         if key in self.db:
             return self.db[key]
         elif key not in self.db:
-            print('В базе данных нет такого ключа')
+            return 'В базе данных нет такого ключа'
         logging.info(
             str(datetime.datetime.today()) + ' ' + 'Пользователь искал значение для ключа "{}" в базе данных'.format(
                 key))
+
 
     def update(self, key=str, value=(str or int or list)):
         """
@@ -54,7 +58,6 @@ class HandMadeDB:
                     key, value))
         else:
             answer = input('Данный ключ уже содержится в базе данных, вы уверены, что хотите перезаписать [y/n]: ')
-
             if answer == 'y':
                 self.db[key] = value
                 logging.info(
@@ -70,6 +73,7 @@ class HandMadeDB:
                 key))
         return self.db
 
+
     def delete(self, key=str):
         """
         Функция, которая удаляет пару ключ-значение по переданному ключу
@@ -80,10 +84,11 @@ class HandMadeDB:
         try:
             del self.db[key]
         except KeyError:
-            print('В базе данных нет такого ключа')
+            return 'В базе данных нет такого ключа'
         self.save()
         logging.info(str(datetime.datetime.today()) + ' ' + 'Пользователь удалил значения для ключа "{}" из базы данных'.format(key))
         return self.db
+
 
     def save(self):
         """
@@ -95,12 +100,70 @@ class HandMadeDB:
             json.dump(self.db, d, ensure_ascii=False, indent=2)
         logging.info(str(datetime.datetime.today()) + ' ' + 'Пользователь сохранил изменения в базе данных')
 
-    def __auto_eraser(self):
+
+if __name__ == '__main__':
+    base = None
+    start_time = time.time()
+    print('Welcome to simple command line interface of database')
+    menu = """
+        All items in database saved in dict format {key: value}.
+        Lifetime of database is 900 seconds.
+        Opportunities of test database:
+        0. Print menu
+        1. Create database
+        2. Read elements from database
+        3. Update database
+        4. Delete item from database
+        command 'stop' - stopped
         """
-        Функция, которая автоматически удаляет все значения из базы данных по истечению 15 минут после её создания
-        :return:
-        """
-        logging.info(str(datetime.datetime.today()) + ' ' + 'База данных автоматически очищена')
+    print(menu)
+    while time.time() - start_time < 900:
+        answer = input('Enter a operation code: ')
+        if answer == '1':
+            if base != None:
+                print('Database already exist')
+            base = HandMadeDB()
+            print('Created database')
+            continue
+        elif answer == '2':
+            key = input('Type key: ')
+            try:
+                print(base.read(key))
+            except:
+                print('There are no item with this key')
+            continue
+        elif answer == '3':
+            key = input('Type key: ')
+            value = input('Type value: ')
+            base.update(key, value)
+            continue
+        elif answer == '4':
+            key = input('Type key: ')
+            base.delete(key)
+            continue
+        elif answer == 'admin':
+            password = input('Enter password: ')
+            if password == 'admin':
+                print('Database:\n', base.db)
+        elif answer == 0:
+            print(menu)
+        elif answer == 'stop':
+            break
+        else:
+            print('Unknown command. Please try again.')
+            continue
+
+        if time.time() - start_time >= 900:
+            base = None
+
+
+
+
+
+
+
+
+
 
 
 
