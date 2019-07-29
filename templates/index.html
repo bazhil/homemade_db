@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>TestWorkDB Interface</title>
+    {% endif %}
+</head>
+<body>
+    <h1>Тестовая самописная база данных</h1>
+    <p>Данное приложение предоставляет API для демонстрации возможностей вышеуказанной БД:</p>
+    <ol>
+        <li><a href="{{ url_for('create') }}">Создание базы данных</a></li>
+        <li><a href="{{ url_for('update') }}">Добавление элемента в базу данных</a></li>
+        <li><a href="{{ url_for('read') }}">Получение элемента из базы данных</a></li>
+        <li><a href="{{ url_for('delete') }}">Удаление элемента из базы данных</a></li>
+    </ol>
+    <hr/>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>
