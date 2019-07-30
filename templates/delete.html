@@ -2,9 +2,15 @@
 
 {% block content %}
 <h2>Удаление значения из базы</h2>
-     <form>
-         <p>Введите ключ</p>
-         <input type="text" name="key" id="dataKey" size="20" placeholder="Ключ">
-         <input type="button" id="spotButton" value="Удалить">
-     </form>
+<form method="post">
+    <p>Введите ключ</p>
+    <input type="text" name="key" id="dataKey" size="20" placeholder="Ключ">
+    <input type="submit" id="spotButton" value="Удалить">
+</form>
+{% if message %}
+<div>{{ message }}</div>
+{% endif %}
+{% if error %}
+<div>{{ error }}</div>
+{% endif %}
 {% endblock %}

@@ -30,5 +30,15 @@ class TestDB(unittest.TestCase):
         base.delete('один')
         self.assertNotIn('один', base.db)
 
+    def test_read(self):
+        """
+        Функция, тестирующая чтение значений из базы данных
+        :return:
+        """
+        base.update('один', 1)
+        value = base.read('один')
+        self.assertEqual(value, 1)
+
+
 if __name__ == '__main__':
     unittest.main()

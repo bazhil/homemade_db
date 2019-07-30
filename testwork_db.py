@@ -100,7 +100,6 @@ class HandMadeDB:
             json.dump(self.db, d, ensure_ascii=False, indent=2)
         logging.info(str(datetime.datetime.today()) + ' ' + 'Пользователь сохранил изменения в базе данных')
 
-
 if __name__ == '__main__':
     base = None
     start_time = time.time()
@@ -155,17 +154,6 @@ if __name__ == '__main__':
 
         if time.time() - start_time >= 900:
             base = None
-
-
-
-
-
-
-
-
-
-
-
 
 
 
