@@ -154,6 +154,3 @@ if __name__ == '__main__':
 
         if time.time() - start_time >= 900:
             base = None
-
-
-
