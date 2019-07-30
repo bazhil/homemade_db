@@ -23,10 +23,10 @@ CORS(app)
 base = None
 
 
-class UpdateForm(Form):
-    "Форма для добавления данных"
-    key = StringField('key', [validators.DataRequired()])
-    value = StringField('value', [validators.DataRequired(), validators.AnyOf(int, str, list)])
+# class UpdateForm(Form):
+#    "Форма для добавления данных"
+#    key = StringField('key', [validators.DataRequired()])
+#    value = StringField('value', [validators.DataRequired(), validators.AnyOf(int, str, list)])
 
 
 @app.route('/', methods=['GET'])
